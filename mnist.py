@@ -10,8 +10,7 @@ import util
 batch_size = 512 # ~2GB graphic memory needed
 epochs = 10
 device = util.get_available_device()
-# device = 'cpu'
-print(f"Using {device} device")
+print(f'Using {device} device')
 
 
 train_loader = DataLoader(

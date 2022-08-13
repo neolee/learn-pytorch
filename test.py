@@ -6,9 +6,6 @@ import timeit
 import util
 
 
-util.show_backend_info()
-
-
 def calculate(dtype, device):
     # Create random input and output data
     x = torch.linspace(-math.pi, math.pi, 2000, device=device, dtype=dtype)
@@ -46,19 +43,13 @@ def calculate(dtype, device):
     print(f'Result: y = {a.item()} + {b.item()} x + {c.item()} x^2 + {d.item()} x^3')
 
 
+util.show_backend_info()
+
 dtype = torch.float
+device = util.get_available_device()
+print(f'Using {device} device')
+t = timeit.Timer(stmt='calculate(dtype, device)', 
+                 setup='from __main__ import calculate',
+                 globals={'dtype': dtype, 'device': torch.device(device)})
 
-print('Calculating on CPU...')
-device = torch.device('cpu')
-t0 = timeit.Timer(stmt='calculate(dtype, device)', 
-                  setup='from __main__ import calculate',
-                  globals={'dtype': dtype, 'device': device})
-
-print('Calculating on GPU...')
-device = torch.device(util.get_available_device())
-t1 = timeit.Timer(stmt='calculate(dtype, device)', 
-                  setup='from __main__ import calculate',
-                  globals={'dtype': dtype, 'device': device})
-
-print(f'CPU: {t0.timeit(number=1):.3f}s')
-print(f'GPU: {t1.timeit(number=1):.3f}s')
+print(f'𝑡({device}): {t.timeit(number=1):.3f}s')
