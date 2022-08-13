@@ -10,6 +10,7 @@ import util
 batch_size = 64
 epochs = 5
 device = util.get_available_device()
+# device = 'cpu'
 print(f"Using {device} device")
 
 

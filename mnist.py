@@ -8,8 +8,9 @@ from torchvision import datasets, transforms
 import util
 
 batch_size = 512 # ~2GB graphic memory needed
-epochs = 20
+epochs = 10
 device = util.get_available_device()
+# device = 'cpu'
 print(f"Using {device} device")
 
 
